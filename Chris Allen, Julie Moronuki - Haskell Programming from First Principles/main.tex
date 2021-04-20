@@ -1,0 +1,135 @@
+% VLDB template version of 2020-03-05 enhances the ACM template, version 1.7.0:
+% https://www.acm.org/publications/proceedings-template
+% The ACM Latex guide provides further information about the ACM template
+
+\documentclass{article}
+\usepackage[margin=20mm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{cancel}
+
+%% The following content must be adapted for the final version
+% paper-specific
+\newcommand\vldbdoi{XX.XX/XXX.XX}
+\newcommand\vldbpages{XXX-XXX}
+% issue-specific
+\newcommand\vldbvolume{14}
+\newcommand\vldbissue{1}
+\newcommand\vldbyear{2020}
+% should be fine as it is
+\newcommand\vldbauthors{\authors}
+\newcommand\vldbtitle{\shorttitle} 
+% leave empty if no availability url should be set
+\newcommand\vldbavailabilityurl{http://vldb.org/pvldb/format_vol14.html}
+
+\newtheorem{theorem}{Teor.}
+\newtheorem{definition}{Def.}
+\newtheorem{example}{Ej.}
+\newtheorem{excercise}{Ejer.}
+
+\begin{document}
+
+\textbf{Sec. 1.11, Combinators: }Determine if each of the following are combinators or not
+
+\begin{enumerate}
+	\item $\lambda x.xxx$
+	\item $\lambda xy.zx$
+	\item $\lambda xyz.xy(zx)$
+	\item $\lambda xyz.xy(zxy)$
+	\item $\lambda xy.xy(zxy)$
+\end{enumerate}
+
+\textbf{Answer:}
+
+Combinators simply have free variables, so $2$ and $5$.
+
+\textbf{Sec. 1.11, Normal form or diverge?: }Determine if each of the following can be reduced to a normal form or if they diverge.
+
+\begin{enumerate}
+	\item $\lambda x.xxx$
+	\item $(\lambda z.zz)(\lambda y.yy)$
+	\item $(\lambda x.xxx)z$
+\end{enumerate}
+
+\textbf{Answer:}
+
+\begin{enumerate}
+	\item $\lambda x.xxx$ is in normal form, so it's convergent.
+	\item $(\lambda z.zz)(\lambda y.yy)$ diverges, since after a beta reduction it returns to itself.
+	\item $(\lambda x.xxx)z$ evaluates to $zzz$, so it's convergent.
+\end{enumerate}
+
+\textbf{Beta reduce: }Evaluate (that is, beta reduce) each of the following expressions to normal form. We \textit{strongly} recommend writing out the steps on paper with a pencil or pen.
+
+\begin{enumerate}
+	\item $(\lambda abc.cba)zz(\lambda wv.w)$
+	\item $(\lambda x.\lambda y.xyy)(\lambda a.a)b$
+	\item $(\lambda y.y)(\lambda x.xx)(\lambda z.zq)$
+	\item $(\lambda z.z)(\lambda z.zz)(\lambda z.zy)$ (Hint: alpha equivalence.)
+	\item $(\lambda x.\lambda y.xyy)(\lambda y.y)y$
+	\item $(\lambda a.aa)(\lambda b.ba)c$
+	\item $(\lambda xyz.xz(yz))(\lambda x.z)(\lambda x.a)$
+\end{enumerate}
+
+\textbf{Answer:}
+
+\textbf{1:}
+\begin{flalign*}
+	&(\lambda abc.cba)zz(\lambda wv.w) &&\\
+	&(\lambda bc.cbz)z(\lambda wv.w) &&\\
+	&(\lambda c.czz)(\lambda wv.w) &&\\
+	&(\lambda wv.w)zz &&\\
+	&z. &&
+\end{flalign*}
+\textbf{2:}
+\begin{flalign*}
+	&(\lambda x.\lambda y.xyy)(\lambda a.a)b &&\\
+	&(\lambda y.(\lambda a.a)yy)b &&\\
+	&(\lambda a.a)bb &&\\
+	&bb. &&
+\end{flalign*}
+\textbf{3:}
+\begin{flalign*}
+	&(\lambda y.y)(\lambda x.xx)(\lambda z.za) &&\\
+	&(\lambda x.xx)(\lambda z.za) &&\\
+	&(\lambda z.za)(\lambda z.za) &&\\
+	&(\lambda z.za)a &&\\
+	&qq. &&
+\end{flalign*}
+\textbf{4:}
+\begin{flalign*}
+	&(\lambda z.z)(\lambda z.zz)(\lambda z.zy) &&\\
+	&(\lambda y.y)(\lambda x.xx)(\lambda z.zy) &&\\
+	&\ldots &&\\
+	&yy. &&
+\end{flalign*}
+\textbf{5:}
+\begin{flalign*}
+	&(\lambda x.\lambda y.xyy)(\lambda y.y)y &&\\
+	&(\lambda y.(\lambda y.y)yy)y &&\\
+	&(\lambda y.y)yy &&\\
+	&yy. &&
+\end{flalign*}
+\textbf{6:}
+\begin{flalign*}
+	&(\lambda a.aa)(\lambda b.ba)c &&\\
+	&(\lambda b.ba)(\lambda b.ba)c &&\\
+	&(\lambda b.ba)ac &&\\
+	&aac. &&
+\end{flalign*}
+\textbf{7:}
+\begin{flalign*}
+	&(\lambda xyz.xz(yz))(\lambda x.z)(\lambda x.a) &&\\
+	&(\lambda xyq.xq(yq))(\lambda x.z)(\lambda x.a) &&\\
+	&(\lambda yq.(\lambda x.z)q(yq))(\lambda x.a) &&\\
+	&\lambda q.(\lambda x.z)q((\lambda x.a)q) &&\\
+	&\lambda q.z((\lambda x.a)q) &&\\
+	&\lambda q.za. &&
+\end{flalign*}
+
+\end{document}
+\endinput
