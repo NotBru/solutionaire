@@ -179,35 +179,27 @@ As $M\rightarrow\infty$, this converges to $1-1/e=0.632$. The result is surprisi
 
 \textbf{Answer:}
 
-Indeed, it surprises me. But, we're throwing infinite uniquely labeled balls to infinite uniquely labeled urns. It's no surprise it doesn't help a lot. It's also surprising that the probability lowers when going from odd $k$ to even $k$. The proposition $\mathcal M=\text{``There is at least one match''}$ can be decomposed as the sum of $\mathcal M_i=\text{``There is a match in urn $i$''}$, so
-\begin{align}
-	P(\mathcal M)&=P\left(\sum_{i=1}^M\mathcal M_i\right)\\
-	&=P(\mathcal M_1)+P\left(\sum_{i=2}^M\mathcal M_i\right)-P\left(\mathcal M_1\sum_{i=2}^M\mathcal M_i\right)\\
-	&=\cdots\\
-	&=\sum_{i=1}^MP(\mathcal M_i)-\sum_{k=2}^MP\left(\mathcal M_{k-1}\sum_{i=k}^M\mathcal M_i\right)\\
-	&=\sum_{i=1}^MP(\mathcal M_i)-\sum_{k=2}^MP(\mathcal M_{k-1})P\left(\sum_{i=k}^M\mathcal M_i\middle|\mathcal M_{k-1}\right).
-\end{align}
+I give up. The problem turns out to be that of counting derangements, which Wikipedia explains:
 
-Now, since the set of propositions $\mathcal B_{n,\,i}=\text{``The ball $n$ falls into the urn $i$''}$ is exhaustive, mutually exclusive, and symmetrical for every $i$, we have $P(\mathcal B_{n,\,i})=1/M$. By observing that $\mathcal M_i=\mathcal B_{i,\,i}$, we see $P(\mathcal M_i)=1/M$, so that
+Let the urn $1$ receive ball $i$. If urn $i$ receives ball $1$, then we're left with the problem of counting derangements for $M-2$.
+If urn $i$ receives a ball other than $1$, then it's the problem of counting derangements for $M-1$, since for each of the other urns there is $1$ ball they may not receive (urn $i$ shall not receive ball $1$). Thus,
 \begin{align}
-	P(\mathcal M)&=1-\frac1M\sum_{k=2}^MP\left(\sum_{i=k}^M\mathcal M_i\middle|\mathcal M_{k-1}\right)\\
-	&=1-\frac1M
+	!n&=(n-1)(!(n-1)+!(n-2)),
 \end{align}
+which may now be solved by induction.
 
-The proposition $\mathcal M=\text{``There is at least one match''}$ is the negation of $\mathcal N=\text{``There is no match at all''}$, which in turn can be decomposed as the product of propositions $\mathcal N_i=\text{``There is no match on box $i$''}$. In terms of this negation, the exercise takes the form $P(\mathcal N)=\sum_{k=2}^M(-1)^{k+1}/k!$.
+\textbf{Exercise 3.5: Occupancy: }$N$ balls are tossed into $M$ urns; there are evidently $M^N$ ways this can be done. If the robot considers them all equally likely, what is its probability that each urn receives at least one ball?
 
-In these terms,
+\textbf{Answer: }
+
+If they're equally likely, we can just count. We'll count the negative, summing over the number $k$ of boxes with no matches. There are $\begin{pmatrix}M\\k\end{pmatrix}$ such choices, and the rest of boxes allow for $(M-k)^N$ choices, so there are
 \begin{align}
-	P(\mathcal N)&=P\left(\prod_{i=1}^M\mathcal N_i\right)\\
-	&=P(\mathcal N_1)P\left(\prod_{i=2}^M\mathcal N_i\middle|\mathcal N_1\right).
+	\sum_{k=1}^M\begin{pmatrix}M\\k\end{pmatrix}(M-k)^N
 \end{align}
-
-We can see that the propositions $\mathcal B_{i,\,j}=\text{``Ball $i$ goes to urn $j$''}$ for fixed $j$ are exhaustive and equally likely, so that $P(\mathcal B_{i,\,j})=M$, and so $P(\mathcal N_1)=P\left(\sum_{i=2}^M\mathcal B_{i,\,1}\right)=(1-1/M)$. We keep on,
+instances where no box receives balls, and thus
 \begin{align}
-	P(\mathcal N)&=P(\mathcal N_1)P\left(\prod_{i=2}^M\mathcal N_i\middle|\mathcal N_1\right)\\
-	&=(1-1/M)P(\mathcal N_2|\mathcal N_1)\left(\prod_{i=3}^M\mathcal N_i\middle|\mathcal N_1\mathcal N_2\right).
+	P(\text{``Each urn receives at least one ball''})&=1-\sum_{k=1}^M\begin{pmatrix}M\\k\end{pmatrix}\left(1-\frac{k}{M}\right)^N
 \end{align}
-Now, since by symmetry $P(\mathcal N_2|\mathcal N_1)=P(\mathcal N_1|\mathcal N_2)$
 
 \end{document}
 \endinput
