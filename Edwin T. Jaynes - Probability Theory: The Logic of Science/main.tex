@@ -34,7 +34,7 @@
 
 \begin{document}
 
-\textbf{Excercise 2.1: }Is it possible to find a general formula for $p(C|A+B)$, analogous to $(2-48)$, from the product and sum rules? If so, derive it; if not, explain why this cannot be done.
+\textbf{Ex. 2.1: }Is it possible to find a general formula for $p(C|A+B)$, analogous to $(2-48)$, from the product and sum rules? If so, derive it; if not, explain why this cannot be done.
 
 \textbf{Answer:}
 
@@ -44,7 +44,7 @@ Sure. We've derived Bayes theorem without naming it, which is simply product rul
 	&=\frac{p(C)\,\left(p(A)+p(B)-p(AB|C)\right)}{p(A)+p(B)-p(AB)}.
 \end{align*}
 
-\textbf{Excercise 2.2: }Now suppose we have a set of propositions $\{A_1,\,\cdots,\,A_n\}$ which on information $X$ are mutually exclusive: $p(A_iA_j|X)=p(A_i|X)\delta_{ij}$. Show that $p(C|(A_1+A_2+\cdots+A_n)X)$ is a weighted average of the separate plausibilities $p(C|A_iX)$:
+\textbf{Ex. 2.2: }Now suppose we have a set of propositions $\{A_1,\,\cdots,\,A_n\}$ which on information $X$ are mutually exclusive: $p(A_iA_j|X)=p(A_i|X)\delta_{ij}$. Show that $p(C|(A_1+A_2+\cdots+A_n)X)$ is a weighted average of the separate plausibilities $p(C|A_iX)$:
 \begin{align*}
 	p(C|(A_1+\cdots+A_n)X)=p(C|A_1X+A_2X+\cdots+A_nX)=\frac{\sum_ip(A_i|X)p(C|A_iX)}{\sum_ip(A_i|X)}.
 \end{align*}
@@ -67,7 +67,7 @@ Thus, and in a similar manner to the above excercise,
 	&=\frac{\sum_ip(A_i|X)p(C|A_iX)}{\sum_ip(A_i|X)}.
 \end{align*}
 
-\textbf{Excercise: }Let $A_i$ mutually exclusive ($P(A_iA_j)=P(A_i)\delta_{ij}$). Then, $P(\sum_iA_i)=\sum_iP(A_i)$.
+\textbf{Ex.: }Let $A_i$ mutually exclusive ($P(A_iA_j)=P(A_i)\delta_{ij}$). Then, $P(\sum_iA_i)=\sum_iP(A_i)$.
 
 \textbf{Answer: }
 
@@ -85,7 +85,7 @@ Then, by induction,
 	&=\sum_iP(A_i).
 \end{align}
 
-\textbf{Excercise 2.3: Limits on Probability Values: } As soon as we have the numerical values $a=P(A|C)$ and $b=P(B|C)$, the product and sum rules place some limits on the possible numerical values for their conjunction and disjuncion. Supposing that $a\leq b$, show that the probability of the conjunction cannot exceed that of the least possible proposition: $0\leq P(AB|C)\leq a$, and the probability of the disjunction cannot be less than that of the most probable proposition: $b\leq P(A+B|C)\leq 1$. Then show that, if $a+b>1$, there is a stronger inequality for the conjunction; and if $a+b<1$ there is a stronger one for the disjunction. These necessary general inequalities are helpful in detecting errors in calculations.
+\textbf{Ex. 2.3: Limits on Probability Values: } As soon as we have the numerical values $a=P(A|C)$ and $b=P(B|C)$, the product and sum rules place some limits on the possible numerical values for their conjunction and disjuncion. Supposing that $a\leq b$, show that the probability of the conjunction cannot exceed that of the least possible proposition: $0\leq P(AB|C)\leq a$, and the probability of the disjunction cannot be less than that of the most probable proposition: $b\leq P(A+B|C)\leq 1$. Then show that, if $a+b>1$, there is a stronger inequality for the conjunction; and if $a+b<1$ there is a stronger one for the disjunction. These necessary general inequalities are helpful in detecting errors in calculations.
 
 \textbf{Answer: }
 
@@ -107,13 +107,13 @@ For the disjunction,
 
 And also, $b+a<1$ implies $P(A+B|C)<1-P(AB|C)=P(\overline{AB}|C)$.
 
-\textbf{Excercise 3.1: }Why isn't the multiplicity factor $(3-16)$ just $n!$? After all, we started this discussion by stipulating that the balls, in addition to having colors, also carry labels $(1\cdots N)$, so that different permutations of the red balls among themselves, which give the $r!$ in the denominator of $(3-16)$, are distinguishable arrangements.
+\textbf{Ex. 3.1: }Why isn't the multiplicity factor $(3-16)$ just $n!$? After all, we started this discussion by stipulating that the balls, in addition to having colors, also carry labels $(1\cdots N)$, so that different permutations of the red balls among themselves, which give the $r!$ in the denominator of $(3-16)$, are distinguishable arrangements.
 
 \textbf{Answer: }
 
 We've decomposed the event ``drawing $r$ red balls in $n$ draws'' as the union of events of the form ``draw $r$ red balls in $n$ draws with the particular permutation of orders $p$'' for permutations $p$, which are mutually exclusive and identically plausible. At doing this, we're using the events $R_i$ and $W_i$, with the probability given by $(3-14)$. If we were to use ``drawing the following $n$ balls, where $r$ are red'', we should be accounting for the probability $B_{ij}$ of drawing the $i$th ball after $j$ draws, which would incorporate the missing factors.
 
-\textbf{Excercise 3.2: Probability of a Full Set: }Suppose an urn contains $N=\sum_iN_i$ balls, $N_1$ of color $1$, $N_2$ of color $2$, $\cdots$, $N_k$ of color $k$. We draw $m$ balls without replacement; what is the probability that we have at least one of each color? Supposing $k=5$, all $N_i=10$, how many do we need to draw in order to have at least $90\%$ probability of getting a full set?
+\textbf{Ex. 3.2: Probability of a Full Set: }Suppose an urn contains $N=\sum_iN_i$ balls, $N_1$ of color $1$, $N_2$ of color $2$, $\cdots$, $N_k$ of color $k$. We draw $m$ balls without replacement; what is the probability that we have at least one of each color? Supposing $k=5$, all $N_i=10$, how many do we need to draw in order to have at least $90\%$ probability of getting a full set?
 
 \textbf{Answer: }
 
@@ -127,7 +127,7 @@ A calculation is probably better done by calculating the missing terms instead, 
 
 The ``3.2.py'' script does the maths, and outputs $m=15$ as the solution, with a probability of about $0.91$.
 
-\textbf{Excercise 3.3: Reasoning Backwards: }Suppose that in the previous exercise $k$ is initially unknown, but we know that the urn contains exactly $50$ balls. Drawing out $20$ of them, we find $3$ different colors; now what do we know about $k$? We know from deductive reasoning (i.e., with certainty) that $3\leq k\leq 33$; but can you set narrower limits $k_1\leq k\leq k_2$ within which it is highly likely to be?
+\textbf{Ex. 3.3: Reasoning Backwards: }Suppose that in the previous exercise $k$ is initially unknown, but we know that the urn contains exactly $50$ balls. Drawing out $20$ of them, we find $3$ different colors; now what do we know about $k$? We know from deductive reasoning (i.e., with certainty) that $3\leq k\leq 33$; but can you set narrower limits $k_1\leq k\leq k_2$ within which it is highly likely to be?
 
 \textbf{Answer:}
 
@@ -170,7 +170,7 @@ The ``3.3.py'' script implements this solution, giving the probability distribut
 	\label{fig:3.3}
 \end{figure}
 
-\textbf{Exercise 3.4: Matching: }The $M$ urns are now numbered $1$ to $M$, and $M$ balls, also numbered $1$ to $M$, are thrown into them, one in each urn. If the numbers of a ball and its urn are the same, we have a match. Show that the probability of at least one match is
+\textbf{Ex. 3.4: Matching: }The $M$ urns are now numbered $1$ to $M$, and $M$ balls, also numbered $1$ to $M$, are thrown into them, one in each urn. If the numbers of a ball and its urn are the same, we have a match. Show that the probability of at least one match is
 \begin{align*}
 	P&=\sum_{k=1}^M(-1)^{k+1}/k!.
 \end{align*}
@@ -188,7 +188,7 @@ If urn $i$ receives a ball other than $1$, then it's the problem of counting der
 \end{align}
 which may now be solved by induction.
 
-\textbf{Exercise 3.5: Occupancy: }$N$ balls are tossed into $M$ urns; there are evidently $M^N$ ways this can be done. If the robot considers them all equally likely, what is its probability that each urn receives at least one ball?
+\textbf{Ex. 3.5: Occupancy: }$N$ balls are tossed into $M$ urns; there are evidently $M^N$ ways this can be done. If the robot considers them all equally likely, what is its probability that each urn receives at least one ball?
 
 \textbf{Answer: }
 
@@ -200,6 +200,116 @@ instances where no box receives balls, and thus
 \begin{align}
 	P(\text{``Each urn receives at least one ball''})&=1-\sum_{k=1}^M\begin{pmatrix}M\\k\end{pmatrix}\left(1-\frac{k}{M}\right)^N
 \end{align}
+
+\textbf{Ex. 4.1: }Show that there is no such nontrivial extension of the binary case. More specifically, prove that if $(4.28)$ and $(4.29)$ hold with $n>2$, then at most one of the factors
+\begin{align*}
+	\frac{P\left(D_1\middle|H_i\,X\right)}{P\left(D_1\middle|\overline{H_i}\,X\right)}\cdots\frac{P\left(D_m\middle|H_i\,X\right)}{P\left(D_m\middle|\overline{H_i}\,X\right)}
+\end{align*}
+is different from unity, therefore at most one of the data sets $D_j$ can produce any updating of the probability for $H_i$.
+
+\textbf{Answer:}
+
+The equations mentioned are that of independence in $D_1$ to $D_m$ conditioned to both the hypothesis and its negation:
+\begin{align*}
+	P\left(D_1,\ldots,D_m\middle|A\,X\right)&=\prod_jP\left(D_j\middle|A\,X\right)\;\;\forall A\in\{H_i,\,\overline{H_i}\}\forall i\in[1,n]_{\mathbb N},
+\end{align*}
+under the hypothesis that the $H_i$ are exhaustive.
+
+This means
+\begin{align*}
+	P(H_i|D_j\,X)+P\left(\overline{H_i}\middle|D_j\,X\right)&=1,\\
+	\left(P(D_j|H_i\,X)-P\left(D_j\middle|\overline{H_i}\,X\right)\right)P(H_i|X)&=P(D_j|X)-P\left(D_j\middle|\overline{H_i}\,X\right).
+\end{align*}
+
+I believe the proof has to do with the fact that, for a proposition $D_j$ such that $P(D_j|H_i\,X)\neq P\left(D_j\middle|\overline{H_i}\,X\right)$,
+\begin{align*}
+	P(H_i|X)&=\frac{P(D_j|X)-P\left(D_j\middle|\overline{H_i}\,X\right)}{P(D_j|H_i\,X)-P\left(D_j\middle|\overline{H_i}\,X\right)},
+\end{align*}
+but so far it's leading me nowhere.
+
+Maybe use that
+\begin{align*}
+	P(D_k|\overline{H_i})-P(D_k|H_i)&=\sum_{j\neq i}\frac{P(D_k|H_j)P(H_j)}{P(\overline{H_i})}-P(D_k|H_i)\\
+	&=\frac1{P(\overline{H_i})}\sum_j\left[P(D_k|H_j)-P(D_k|H_i)\right]P(H_j),\\
+	\left[P(D_k|\overline{H_i})-P(D_k|H_i)\right]_k&=\frac1{P(\overline{H_i})}\left[P(D_k|H_j)-P(D_k|H_i)\right]_{kj}\left[P(H_j)\right]_j
+\end{align*}
+
+% TODO: Solve this
+
+\textbf{Ex. 4.2: }Calculate the exact threshold of skepticism $f_t(x,\,y)$, supposing that proposition $C$ has instead of $10^{-6}$ an arbitrary prior probability $P(C|X)=x$, and specifies instead of $99/100$ an arbitrary fraction $y$ of bad widgets. Then discuss how the dependence on $x$ and $y$ corresponds - or fails to correspond - to human common sense.
+
+\textbf{Answer:}
+
+Okay, let's do this.
+
+% This section is commented. It's a recap.
+Evidence is defined by
+\begin{align*}
+	e(H|DX)&=10\log_{10}O(H|DX)\\
+	&=10\log_{10}\left[\frac{P(H|DX)}{P(\overline{H}|DX)}\right]\\
+	&=10\log_{10}\left[\frac{P(D|HX)P(H|X)}{P(D|\overline{H}X)P(\overline{H}|X)}\right]\\
+	&=e(H|X)+10\log_{10}\left[\frac{P(D|HX)}{P(D|\overline{H}X)}\right].
+\end{align*}
+
+So, for multiple mutually exclusive and exhaustive hypotheses,
+\begin{align*}
+	e(H_i|DX)&=e(H_i|X)+10\log_{10}\left[\frac{P(D|H_iX)}{P(D|\sum_{j\neq i}H_jX)}\right],
+\end{align*}
+and we can replace
+\begin{align}
+	P\left(D\middle|\sum_{j\neq i}H_jX\right)&=P\left(D\sum_{k\neq i}H_j\middle|\sum_{j\neq i}H_jX\right)\\
+	&=\sum_{k\neq i}\frac{P(DH_k\sum_{j\neq i}H_j|X)}{P(\sum_{j\neq i}H_j|X)}\\
+	&=\frac{\sum_{k\neq i}P(DH_k|X)}{\sum_{j\neq i}P(H_j|X)}\\
+	&=\frac{\sum_{k\neq i}P(D|H_kX)P(H_k|X)}{\sum_{k\neq i}P(H_k|X)}.
+\end{align}
+
+So, letting $w_k^{(i)}=P(H_k|X)/\sum_{j\neq i}P(H_j|X)$,
+\begin{align*}
+	e(H_i|DX)&=e(H_i|X)+10\log_{10}\left[\frac{P(D|H_iX)}{\sum_{k\neq i}w_k^{(i)}P(D|H_kX)}\right].
+\end{align*}
+
+This is, we're comparing the likelihood of $H_i$ with the sum of the likelihoods $H_k$ for $k\neq i$ weighted by their prior likelihood. So yeah, I guess we can keep the $j$th term of the denominator as long as it's $10$ times bigger than the rest of them.
+
+In the problem at hand,
+\begin{align*}
+	P(A|X)=\frac1{11}(1-x),\\
+	P(B|X)=\frac{10}{11}(1-x),\\
+	P(C|X)=x.
+\end{align*}
+
+Furthermore, if after $m$ measurements we find $fm$ of them are bad,
+\begin{align*}
+	P(D|AX)&=\begin{pmatrix}m\\m_b\end{pmatrix}\left(\frac13\right)^{fm}\left(\frac23\right)^{(1-f)m},\\
+	P(D|BX)&=\begin{pmatrix}m\\m_b\end{pmatrix}\left(\frac16\right)^{fm}\left(\frac56\right)^{(1-f)m},\\
+	P(D|CX)&=\begin{pmatrix}m\\m_b\end{pmatrix}y^{fm}(1-y)^{(1-f)m}.
+\end{align*}
+
+This all results in
+\begin{align*}
+	e(C|DX)&=e(C|X)+10\log_{10}\left[\frac{P(D|CX)}{w_A^{(C)}P(D|AX)+w_B^{(C)}P(D|AX)}\right]\\
+	&=10\log_{10}\left[\frac{x}{1-x}\right]+10\log_{10}\left[\frac{y^{fm}(1-y)^{(1-f)m}}{\frac1{11}\left(\frac13\right)^{fm}\left(\frac23\right)^{(1-f)m}+\frac{10}{11}\left(\frac16\right)^{fm}\left(\frac56\right)^{(1-f)m}}\right]\\
+	&=10\log_{10}\left[\frac{x}{1-x}\right]+10\log_{10}\left[\frac{\left(\left(\frac{y}{1-y}\right)^f(1-y)\right)^m}{\frac1{11}\left(\left(\frac12\right)^f\frac23\right)^m+\frac{10}{11}\left(\left(\frac15\right)^f\frac56\right)^m}\right].
+\end{align*}
+
+I find the last form more enlightening for the problem at hand. All of those terms are of the form $\text{something}^m$. For $m\rightarrow\infty$, the term with the higher base will govern the denominator. To see which, we note the quotient of them is
+\begin{align*}
+	\left(\frac52\right)^f\frac45,
+\end{align*}
+so setting this to unity yields a critical value $f=\log\left(\frac54\right)/\log\left(\frac52\right)\approx0.24$. Given that the term in parentheses is greater than one, this means hypothesis $A$ governs when $f$ goes above this value, and $B$ governs otherwise. If we want the threshold for $y>\frac13$, it is clear that we need to work in the range where hypothesis $A$ is more likely. So the threshold of skepticism is given by the value $f$ such that the quotient
+\begin{align*}
+	\left(2\frac{y}{1-y}\right)^f\frac32(1-y)
+\end{align*}
+is equal to $1$. This yields the exact value
+\begin{align*}
+	f_t(x,\,y)&=\frac{\log\left(\frac23\frac1{1-y}\right)}{\log\left(2\frac{y}{1-y}\right)}.
+\end{align*}
+
+For $y=99/100$, this yields approximately $0.794155$, in conflict with the value of $0.793951$ given in the book. But the solution book I'm contrasting with in github gives this same value, $0.7941$etc.
+
+The general case for estimating this threshold is now obvious:
+\begin{align*}
+	f_t&=\frac{\log\left[\frac{P(\text{good}|CX)}{P(\text{good}|AX)}\right]}{\log\left[\frac{P(\text{bad}|CX)P(\text{good}|AX)}{P(\text{good}|CX)P(\text{bad}|AX)}\right]}.
+\end{align*}
 
 \end{document}
 \endinput
