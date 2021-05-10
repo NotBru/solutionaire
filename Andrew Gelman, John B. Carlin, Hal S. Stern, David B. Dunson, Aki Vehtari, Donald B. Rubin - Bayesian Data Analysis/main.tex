@@ -219,5 +219,173 @@ The rest of answers can be found in Figure \ref{fig:1.12.9}.
 	\label{fig:1.12.9}
 \end{figure}
 
+\textbf{Ex. 2.11.1: }Posterior inference: suppose you have a $\oname{Beta}(4,\,4)$ prior distribution on the probability $\theta$ that a coin will yield a `head' when spun in a specified manner. The coin is independently spun ten times, and `heads' appear fewer than $3$ times. You are not told how many heads were seen, only that the number is less than $3$. Calculate your exact posterior density (up to a proportionality constant) for $\theta$ and sketch it.
+
+\textbf{Answer:}
+
+We are asked
+\begin{align*}
+	p(\theta|y<3)&=p(\theta|(y=0)+(y=1)+(y=2))\\
+	&\propto p((y=0)+(y=1)+(y=2)|\theta)p(\theta)\\
+	&=(p(y=0|\theta)+p(y=1|\theta)+p(y=2|\theta))p(\theta).
+\end{align*}
+Each term separately will yield $\oname{Beta}(4+y,\,4+(10-y))$, so that the final probability distribution is plainly
+\begin{align*}
+	\frac13\left[\oname{Beta}(4,\,14)+\oname{Beta}(5,\,13)+\oname{Beta}(6,\,12)\right].
+\end{align*}
+Those have means $4/18$, $5/18$, $6/18$, so that the mean is $5/18$. More concretely, if
+\begin{align*}
+	p(x)&=\sum_iw_ip_i(x),
+\end{align*}
+then the expectation of stuff is given by
+\begin{align*}
+	\mathrm E\cdot&=\int\mathrm dx\;p(x)\cdot\\
+	&=\sum_iw_i\int\mathrm dx\;p_i(x)\cdot\\
+	&=\sum_iw_i\mathrm E_i\cdot.
+\end{align*}
+
+It then follows that
+\begin{align*}
+	\mathrm E\theta&=\frac13\left[\mathrm E_1\theta+\mathrm E_2\theta+\mathrm E_3\theta\right]\\
+	&=\frac5{18}.
+\end{align*}
+The same proccess can yield the new variance.
+
+The corresponding computer graph is shown in Figure \ref{fig:2.11.1}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Numerical/2.11.1}
+	\caption{Probability distribution for $\theta$ given the number of heads is less than $3$.}
+	\label{fig:2.11.1}
+\end{figure}
+
+\textbf{Ex. 2.11.2: }Predictive distributions: consider two coins, $C_1$ and $C_2$, with the following characteristics: $\oname{Pr}(\text{heads}|C_1)=0.6$ and $\oname{Pr}(\text{heads}|C_2)=0.4$. Choose one of the coins at random and imagine spinning it repeatedly. Given that the first two spins from the chosen coin are tails, what is the expectation of the number of additional spins until a head shows up?
+
+\textbf{Answer:}
+
+Here I'll represent the data by $D$.
+
+The conditional probability that we make $n$ tosses until heads is found is
+\begin{align*}
+	p(n|C_i)&=\left(\oname{Pr}(\text{tails}|C_i)\right)^{n-1}\oname{Pr}(\text{heads}|C_i),
+\end{align*}
+so that
+\begin{align*}
+	p(n)&=\sum_ip(n,\,C_iD)\\
+	&=\sum_ip(n|C_i)\oname{Pr}(C_i|D).
+\end{align*}
+Since we have no information as to which coin we picked, we'll take $\oname{Pr}(C_i)=\frac12$ which, together with $\oname{Pr}(D|C_i)=\left(\oname{Pr}(\text{tails}|C_i)\right)^2$ yield $\oname{Pr}(C_i|D)=\left(\oname{Pr}(\text{tails}|C_i)\right)^2/\left[\left(\oname{Pr}(\text{tails}|C_i)\right)^2+\left(\oname{Pr}(\text{tails}|C_{\overline{i}})\right)^2\right]$, where $\overline{i}$ is not $i$. Numerically, this yields $P(C_2|D)=0.69$, nice.
+
+Anyways, we also have $p(n|C_i)=\left(\oname{Pr}(\text{tails}|C_i)\right)^{n-1}\oname{Pr}(\text{heads}|C_i)$, so we get our final result of
+\begin{align*}
+	p(n)&=\frac{\left(\oname{Pr}(\text{tails}|C_1)\right)^{n+1}\oname{Pr}(\text{heads}|C_1)+\left(\oname{Pr}(\text{tails}|C_2)\right)^{n+1}\oname{Pr}(\text{heads}|C_2)}{\left(\oname{Pr}(\text{tails}|C_1)\right)^2+\left(\oname{Pr}(\text{tails}|C_2)\right)^2}.
+\end{align*}
+
+Our final calculation is then $\mathrm E[n]=\sum_{n=1}np(n)$, which can be done analitically just fine but I wont, and yields about $2.24$.
+
+\textbf{Ex. 2.11.3: }Predictive distributions: let $y$ be the number of $6$'s in $1000$ rolls of a fair die.
+\begin{enumerate}[label=\alph*]
+	\item Sketch the approximate distribution of $y$, based on the normal approximation.
+	\item Using the normal distribution table, give approximate $5\%$, $25\%$, $50\%$, $75\%$ and $95\%$ points for the distribution of $y$.
+\end{enumerate}
+
+\textbf{Answer:}
+
+We have $y\sim\oname{B}(1000,\,1/6)$, with mean $166.\overline{6}$ and deviation $11.8$. So I should draw a bell curve which should have a width of $23.6$ at $0.6$ its height, centered in $166.6$. As for the table thingy, the following Python interpreter run has been performed
+\begin{lstlisting}[language=Python]
+In [1]: import scipy.stats as st
+
+In [2]: [ 166.6+11.8*st.norm.ppf(x) for x in [0.05, 1/4, 1/2, 3/4, 0.95] ]
+Out[2]:
+[147.1907272019726,
+ 158.64102094768623,
+ 166.6,
+ 174.55897905231376,
+ 186.00927279802738]
+\end{lstlisting}
+
+\textbf{Ex. 2.11.4: }Predictive distributions: let $y$ be the number of $6$'s in $1000$ independent rolls of a particular real die, which may be unfair. Let $\theta$ be the probability that the die lands on `$6$'.
+
+Suppose your prior distribution for $\theta$ is as follows:
+\begin{align*}
+	\oname{Pr}(\theta=1/12)&=0.25\\
+	\oname{Pr}(\theta=1/6)&=0.5\\
+	\oname{Pr}(\theta=1/4)&=0.25.
+\end{align*}
+
+\begin{enumerate}[label=\alph*]
+	\item Using the normal approximation for the conditional distributions, $p(y|\theta)$, sketch your approximate prior predictive distribution for $y$.
+	\item Give approximate $5\%$, $25\%$, $50\%$, $75\%$, and $95\%$ points for the distribution of $y$. (Be careful here: $y$ does not have a normal distribution, but you can still use the normal distribution as part of your analysis.)
+\end{enumerate}
+
+\textbf{Answer:}
+
+Again we have $p(y)=\sum_\theta p(y|\theta)p(\theta)$. Under the normal approximation, $y|\theta\sim\mathcal N(n\theta,\,n\theta(1-\theta))$, so we'll have
+\begin{align*}
+	y|\theta\sim 0.25\cdot N(83.3,\,8.74^2)+0.5\cdot N(166.7,\,11.8^2)+0.25\cdot N(250, 13.7),
+\end{align*}
+which is a pretty disjoint (and thus easily drawable) mixture if you ask me.
+\begin{figure}[h]
+	\center
+	\includegraphics[width=0.4\textwidth]{Numerical/2.11.4.png}
+	\caption{Actual and normally-approximated predictive prior distribution for $y$}
+	\label{fig:2.11.4}
+\end{figure}
+
+As for the approximate points, we can essentially regard the distributions as disjoint, so that the $5\%$ point is the $20\%$ of the first one, the $25\%$ can be approximated as, say, the middle point between the first two Gaussians, the $50\%$ point as the mean $166.7$ of the middle Gaussian, and so on. So, \textit{a ojo}, they should be about $70$, $120$, $167$, $210$, and $270$. But I shall put this handwavery to the test via numerical integration, which is performed in the script `2.11.4.py'. For the real values it yields $76$, $120$, $167$, $207$, and $261$. For the normal-plus-disjointness-approximated values we get $76$, $125$, $167$, $208$, and $262$.
+
+\textbf{Ex. 2.11.5: }Posterior distribution as a compromise between prior information and data: let $y$ be the number of heads in $n$ spins of a coin, whose probability of heads is $\theta$.
+\begin{enumerate}[label=\alph*]
+	\item If your prior distribution for $\theta$ is uniform on the range $[0,\,1]$, derive your prior predictive distribution for $y$,
+		\begin{align*}
+			\oname{Pr}(y=k)&=\int_0^1\oname{Pr}(y=k|\theta)\mathrm d\theta,
+		\end{align*}
+		for each $k=0,\,1,\,\ldots,\,n$.
+	\item Suppose you assign a $\oname{Beta}(\alpha,\,\beta)$ prior distribution for $\theta$, and then you observe $y$ heads out of $n$ spins. Show algebraically that your posterior mean of $\theta$ always lies between your prior mean, $\frac{\alpha}{\alpha+\beta}$, and the observed relative frequency of heads, $\frac{y}n$.
+	\item Show that, if the prior distribution on $\theta$ is uniform, the posterior variance of $\theta$ is always less than the prior variance.
+	\item Give an example of a $\oname{Beta}(\alpha,\,\beta)$ prior distribution and data $y,\,n$, in which the posterior variance of $\theta$ is higher than the prior variance.
+\end{enumerate}
+
+\textbf{Answer:}
+
+Point a:
+\begin{align*}
+	\oname{Pr}(y=k)&=\int_0^1\mathrm d\theta\;\oname{Pr}(y=k|\theta)\\
+	&=\int_0^1\mathrm d\theta\;\begin{pmatrix}n\\k\end{pmatrix}\theta^k(1-\theta)^{n-k}\\
+	&=\begin{pmatrix}n\\k\end{pmatrix}\int_0^1\mathrm d\theta\;\theta^k(1-\theta)^{n-k}\\
+	&=\begin{pmatrix}n\\k\end{pmatrix}\left\{\cancelto{0}{\left[\frac1{k+1}\theta^{k+1}(1-\theta)^{n-k}\right]_0^1}+\frac{n-k}{k+1}\int_0^1\mathrm d\theta\;\theta^{k+1}(1-\theta)^{n-k-1}\right\}\\
+	&=\begin{pmatrix}n\\k\end{pmatrix}\frac{n-k}{k+1}\frac{n-k-1}{k+2}\ldots\frac{1}{n}\int_0^1\mathrm d\theta\;\theta^n\\
+	&=\begin{pmatrix}n\\k\end{pmatrix}\frac{k!(n-k)!}{(n+1)!}\\
+	&=\frac{1}{n+1}.
+\end{align*}
+
+Point b:
+
+We've seen in the book that we now have $\theta|y\sim\oname{Beta}(y+\alpha,\,n-y+\beta)$, which has expectation value
+\begin{align*}
+	\frac{y+\alpha}{n+\alpha+\beta}&=\frac{y}{n}\frac{n}{n+\alpha+\beta}+\frac\alpha{\alpha+\beta}\frac{\alpha+\beta}{n+\alpha+\beta}\\
+	&=w\frac{y}n+(1-w)\frac\alpha{\alpha+\beta}\;\;\left(w=\frac{n}{n+\alpha+\beta}\in[0,\,1]\right).
+\end{align*}
+This is a linear function of $w$ which goes from $\frac{y}n$ to $\frac\alpha{\alpha+\beta}$ as $w$ goes from $0$ to $1$, thus proving the result.
+
+Point c:
+
+Since $\theta\sim1$, its variance is
+\begin{align*}
+	\int_0^1\mathrm d\theta\;\left(\theta-\frac12\right)^2&=\frac13\left[\left(\theta-\frac12\right)^3\right]_0^1\\
+	&=\frac1{12}.
+\end{align*}
+Now, $\theta|y\sim\oname{Beta}(y+1,\,n-y+1)$, which has variance
+\begin{align*}
+	\frac{(y+1)(n-y+1)}{(n+2)^2(n+3)}.
+\end{align*}
+As a function of $y$, this is proportional to the denominator $-y^2+ny+n+1$, whose maximum is at $\frac12n$ and yields $\frac14\left(2n+1\right)$, so that
+\begin{align*}
+	\frac{(y+1)(n-y+1)}{(n+2)^2(n+3)}&\leq\frac14\frac{\left(2n+1\right)^2}{\left(n+2\right)^2(n+3)}.
+\end{align*}
+This function can be maximized analitically via derivation, but I just plotted it. It's maximum is around $3$, taking the value $49/600<50/600=1/12$. Such a close call though.
+
+As for point $c$, take $\oname{Beta}(3,\,1)$, yielding variance $0.0375$, and suppose one negative outcome is measured, taking the posterior distribution towards $\oname{Beta}(3,\,2)$ with variance $0.04$.
+
 \end{document}
 \endinput
