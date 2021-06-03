@@ -1,0 +1,8 @@
+\begin{center}
+\begin{tabular}{ c | c c c c c c c c }
+	Prior deviation & $0.1\%$ & $0.5\%$ & $1.0\%$ & $5.0\%$ & $10.0\%$ & $50.0\%$ & $100\%$ & Noninformative\\
+	\hline
+	Posterior mean & $60.02\%$ & $60.47\%$ & $61.47\%$ & $64.57\%$ & $64.89\%$ & $65.00\%$ & $65.00\%$ & $64.97\%$\\
+	Posterior deviation & $0.10\%$ & $0.47\%$ & $0.83\%$ & $1.44\%$ & $1.49\%$ & $1.51\%$ & $1.51\%$ & $1.51\%$\\
+\end{tabular}
+\end{center}

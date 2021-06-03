@@ -271,14 +271,14 @@ The conditional probability that we make $n$ tosses until heads is found is
 \end{align*}
 so that
 \begin{align*}
-	p(n)&=\sum_ip(n,\,C_iD)\\
+	p(n|D)&=\sum_ip(n,\,C_i|D)\\
 	&=\sum_ip(n|C_i)\oname{Pr}(C_i|D).
 \end{align*}
 Since we have no information as to which coin we picked, we'll take $\oname{Pr}(C_i)=\frac12$ which, together with $\oname{Pr}(D|C_i)=\left(\oname{Pr}(\text{tails}|C_i)\right)^2$ yield $\oname{Pr}(C_i|D)=\left(\oname{Pr}(\text{tails}|C_i)\right)^2/\left[\left(\oname{Pr}(\text{tails}|C_i)\right)^2+\left(\oname{Pr}(\text{tails}|C_{\overline{i}})\right)^2\right]$, where $\overline{i}$ is not $i$. Numerically, this yields $P(C_2|D)=0.69$, nice.
 
 Anyways, we also have $p(n|C_i)=\left(\oname{Pr}(\text{tails}|C_i)\right)^{n-1}\oname{Pr}(\text{heads}|C_i)$, so we get our final result of
 \begin{align*}
-	p(n)&=\frac{\left(\oname{Pr}(\text{tails}|C_1)\right)^{n+1}\oname{Pr}(\text{heads}|C_1)+\left(\oname{Pr}(\text{tails}|C_2)\right)^{n+1}\oname{Pr}(\text{heads}|C_2)}{\left(\oname{Pr}(\text{tails}|C_1)\right)^2+\left(\oname{Pr}(\text{tails}|C_2)\right)^2}.
+	p(n|D)&=\frac{\left(\oname{Pr}(\text{tails}|C_1)\right)^{n+1}\oname{Pr}(\text{heads}|C_1)+\left(\oname{Pr}(\text{tails}|C_2)\right)^{n+1}\oname{Pr}(\text{heads}|C_2)}{\left(\oname{Pr}(\text{tails}|C_1)\right)^2+\left(\oname{Pr}(\text{tails}|C_2)\right)^2}.
 \end{align*}
 
 Our final calculation is then $\mathrm E[n]=\sum_{n=1}np(n)$, which can be done analitically just fine but I wont, and yields about $2.24$.
@@ -386,6 +386,257 @@ As a function of $y$, this is proportional to the denominator $-y^2+ny+n+1$, who
 This function can be maximized analitically via derivation, but I just plotted it. It's maximum is around $3$, taking the value $49/600<50/600=1/12$. Such a close call though.
 
 As for point $c$, take $\oname{Beta}(3,\,1)$, yielding variance $0.0375$, and suppose one negative outcome is measured, taking the posterior distribution towards $\oname{Beta}(3,\,2)$ with variance $0.04$.
+
+\textbf{Ex. 2.11.6: }Predictive distributions: Derive the mean and variance ($2.17$) of the negative binomial predictive distribution for the cancer rate example, using the mean and variance formulas ($1.8$) and ($1.9$).
+
+\textbf{Answer:}
+
+Formulas ($1.8$) and ($1.9$) are
+\begin{align*}
+	\mathrm E(u)&=\mathrm E(\mathrm E(u|v)),\\
+	\mathrm{var}(u)&=\mathrm E(\mathrm{var}(u|v))+\mathrm{var}(\mathrm E(u|v)).
+\end{align*}
+
+We're thus asked the mean and variance of the distribution $p(y)=\int\mathrm d\theta\;p(y|\theta)p(\theta)$, where $\theta\sim\oname{Gamma}(\alpha,\,\beta)$ and $y|\theta\sim\oname{Poisson}(10n\theta)$. Direct application follows:
+\begin{align*}
+	\mathrm E(y)&=\mathrm E(\mathrm E(y|\theta))\\
+	&=\mathrm E(10n\theta)\\
+	&=10n_j\mathrm E(\theta)\\
+	&=10n\frac\alpha\beta.\\
+	\mathrm{var}(y)&=\mathrm E(\mathrm{var}(y|\theta))+\mathrm{var}(\mathrm E(y|\theta))\\
+	&=\mathrm E(10n\theta)+\mathrm{var}(10n\theta)\\
+	&=10n\frac\alpha\beta+(10n)^2\frac\alpha{\beta^2},
+\end{align*}
+where the mean and variance of the $\oname{Gamma}$ and $\oname{Poisson}$ have been Googled and used straight away.
+
+\textbf{Ex. 2.11.7: }Noninformative prior densities:
+\begin{enumerate}[label=\alph*]
+	\item For the binomial likelihood, $y\sim\oname{Bin}(n,\,\theta)$, show that $p(\theta)\propto\theta^{-1}(1-\theta)^{-1}$ is the uniform prior distribution for the natural parameter of the exponential family.
+	\item Show that if $y=0$ or $n$, the resulting posterior distribution is improper.
+\end{enumerate}
+
+\textbf{Answer:}
+
+We can express the binomial likelihood in exponential form as follows
+\begin{align*}
+	\oname{Bin}(y|n,\,\theta)&=\begin{pmatrix}n\\y\end{pmatrix}\theta^y(1-\theta)^{n-y}\\
+	&=\begin{pmatrix}n\\y\end{pmatrix}(1-\theta)^n\left(\frac\theta{1-\theta}\right)^y\\
+	&=\begin{pmatrix}n\\y\end{pmatrix}(1-\theta)^n\exp\left(y\log\left(\frac\theta{1-\theta}\right)\right).
+\end{align*}
+It then becomes clear that the natural parameter is $\phi=\log\left(\frac\theta{1-\theta}\right)$. Since the transformation between $\phi$ and $\theta$ is one-to-one,
+\begin{align*}
+	p(\phi)&=p(\theta)\abs{\frac{\mathrm d\phi}{\mathrm d\theta}}^{-1}\\
+	&=\theta^{-1}(1-\theta)^{-1}\abs{\frac{\theta}{1-\theta}\left(1-\theta\right)^2}\\
+	&=1.
+\end{align*}
+
+As for the posterior distribution, we have
+\begin{align*}
+	p(\theta|y)&\propto p(y|\theta)p(\theta)\\
+	&\propto\theta^{y-1}(1-\theta)^{n-y-1}.
+\end{align*}
+Whether $y=0$ or $y=n$ we have something of the form $\eta^{-1}(1-\eta)^{n-1}$, $\eta$ being either $\theta$ or $1-\theta$, so that the integral of this quantity over $\eta$ is precisely the normalization required, but it yields
+\begin{align*}
+	\int_0^1\mathrm d\eta\;\eta^{-1}(1-\eta)^{n-1}&=\int_0^1\mathrm d\eta\;\sum_{k=0}^{n-1}\begin{pmatrix}n-1\\k\end{pmatrix}\eta^{-1}\eta^k\\
+	&=\sum_{k=0}^{n-1}\begin{pmatrix}n-1\\k\end{pmatrix}\int_0^1\mathrm d\eta\;\eta^{k-1}\\
+	&=\int_0^1\mathrm d\eta\;\eta^{-1}+\sum_{k=1}^{n-1}\begin{pmatrix}n-1\\k\end{pmatrix}\int_0^1\mathrm d\eta\;\eta^{k-1}\\
+	&=\infty+\text{something finite},
+\end{align*}
+whence this integral is improper.
+
+\textbf{Ex. 2.11.8: }Normal distribution with unknown mean: a random sample of $n$ students is drawn from a large population, and their weights are measured. The average weight of the $n$ sampled students is $\bar{y}=150\text{ pounds}$. Assume the weights in the population are normally distributed with unknown mean $\theta$ and known standard deviation $20\text{ pounds}$. Suppose your prior distribution for $\theta$ is normal with mean $180$ and standard deviation $40$.
+\begin{enumerate}[label=\alph*]
+	\item Give your posterior distribution for $\theta$. (Your answer will be a function of $n$.)
+	\item A new student is sampled at random from the same population and has a weight of $\tilde{y}\text{ pounds}$. Give a posterior predictive distribution for $\tilde{y}$. (Your answer will still be a function of $n$.)
+	\item For $n=10$, give a $95\%$ posterior interval for $\theta$ and a $95\%$ posterior predictive interval for $\tilde{y}$.
+	\item Do the same for $n=100$.
+\end{enumerate}
+
+\textbf{Answer:}
+
+By hypothesis, $y|\theta\sim\oname{N}(\theta,\,20^2)$ and $\theta\sim\oname{N}(180,\,40^2)$, so that $\bar{y}|\theta\sim\oname{N}(\theta,\,20^2/n)$, and thus $\theta|\bar{y}$ is gonna be given by a normal distribution with
+\begin{align*}
+	\mathrm E(\theta|\bar{y})&=\frac{40^{-2}180+n20^{-2}150}{40^{-2}+n20^{-2}},\\
+	\mathrm{var}(\theta|\bar{y})&=\frac1{40^{-2}+n20^{-2}}.
+\end{align*}
+I could put some numbers there, but it'd be no use. I instead ploted probability desntiy for $\theta|\bar{y}$ (vertical axis) as a function of sample size $n$ (horizontal axis) for $n$ between $0$ and $100$, as shown in Figure \ref{fig:2.11.8}.
+\begin{figure}[h]
+	\center
+	\includegraphics[width=0.5\textwidth]{Numerical/2.11.8.png}
+	\caption{Non-normalized probability distribution for $\theta|\bar{y}$ as a function of $\theta$ and number of samples $n$. Black contour is the mean, and grey contours are $1$ and $3$ standard deviations from it.}
+	\label{fig:2.11.8}
+\end{figure}
+
+Since the actual precision of the data is so small, the mean converges quickly towards the observed mean.
+
+The posterior predictive distribution is the same, but incorporates an extra $20$ in the standard deviation. In particular, for $n=10$, the posterior probabilities for $\theta$ and $\tilde{y}$ have mean $150.73$ and respectively a standard deviation of $6.24$ and $26.24$, so that the $\sim95\%$ intervals are $150.73\pm12.48$ and $150.73\pm42.48$. For $n=100$, the mean becomes $150.07$ and the standard deviations $1.99$ and $20.199$, so that the intervals are $150.07\pm4$ and $150.07\pm48$.
+
+\textbf{Ex. 2.11.9: }Setting parameters for a beta prior distribution: suppose your prior distribution for $\theta$, the proportion of Californians who support the death penalty is beta with mean $0.6$ and standard deviation $0.3$.
+\begin{enumerate}[label=\alph*]
+	\item Determine the parameters $\alpha$ and $\beta$ of your prior distribution. Sketch the prior density function.
+	\item A random sample of $1000$ Californians is taken, and $65\%$ support the death penalty. What are your posterior mean and variance for $\theta$? Draw the posterior density function.
+	\item Examine the sensitivity of the posterior distribution to different prior means and widths including a non-informative prior.
+\end{enumerate}
+
+\textbf{Answer:}
+
+We equate the mean and the variance
+\begin{align*}
+	\frac\alpha{\alpha+\beta}&=\mu,\\
+	\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}&=\sigma^2.
+\end{align*}
+Replacing $\alpha/(\alpha+\beta)=\mu$ and $\beta/(\alpha+\beta)=1-\mu$ in the second equation yields
+\begin{align*}
+	\alpha+\beta&=\frac{\mu\left(1-\mu\right)}{\sigma^2}-1,
+\end{align*}
+which into the first equation implies
+\begin{align*}
+	\alpha&=\mu\left(\frac{\mu\left(1-\mu\right)}{\sigma^2}-1\right),\\
+	\beta&=(1-\mu)\left(\frac{\mu\left(1-\mu\right)}{\sigma^2}-1\right).
+\end{align*}
+
+Upon replacing the particular values $\mu=0.6$ and $\sigma=0.3$, we get
+\begin{align*}
+	\alpha=1,\;\;\beta=\frac23.
+\end{align*}
+
+Now, after the sensus we get $650$ positives and $350$ negatives, whence we'll have $\theta|\text{D}\sim\oname{Beta}(650+1, 350+\frac23)$, with mean $65.0\%$ and standard deviation $1.4\%$.
+
+The following table, calculated in the corresponding script to this exercise, evaluates a few alternatives for $\sigma$, ranging from \textit{whoa} prior certainty to complete prior uncertainty.
+\input{Numerical/2.11.9.out}
+
+The noninformative alternative diminishes the posterior mean because it's centered around $50\%$ instead of $60\%$, so that it's ``pulling effect'' is more evident.
+
+\textbf{Ex. 2.11.10: }Discrete sample spaces: suppose there are $N$ cable cars in San Francisco, numbered sequentially from $1$ to $N$. You see a cable car at random, it is numbered $203$. You wish to estimate $N$.
+\begin{enumerate}[label=\alph*]
+	\item Assume your prior distribution on $N$ is geometric with mean $100$; that is,
+		\begin{align*}
+			p(N)&=(1/100)(99/100)^{N-1},\;\;\text{for }N=1,2,...
+		\end{align*}
+	      What is your posterior distribution for $N$?
+      \item What are the posterior mean and standard deviation of $N$?
+      \item Choose a reasonable `noninformative' prior distribution for $N$ and give the resulting posterior distribution, mean, and standard deviation for $N$.
+\end{enumerate}
+
+\textbf{Answer:}
+
+Let $q=99/100$. My first instinct was proposing an homogeneous sampling distribution for the number $y$ of the observed cable car, $p(y|N)=1/N$. But this conveys no information on the relation between $y$ and $N$, and thus serves no good.
+
+% TODO: Finish this
+
+\textbf{Ex. 2.11.11: }Computing with a nonconjugate single parameter model: suppose $y_1,\ldots,y_5$ are independent samples from a Cauchy distribution with unknown center $\theta$ and known scale $1$: $p(y_i|\theta)\propto1/(1+(y_i-\theta)^2)$. Assume for simplicity that the prior distribution for $\theta$ is uniform on $[0,\,100]$. Given the observations $(y_1,\ldots,y_5)=(43,\,44,\,45,\,46.5,\,47.5)$:
+\begin{enumerate}[label=\alph*]
+	\item Compute the unnormalized posterior density function, $p(\theta)p(y|\theta)$, on a grid of points $\theta=0,\,\frac1m,\,\frac2m,\ldots,\,100$, for some large integer $m$. Using the grid approximation, compute and plot the normalized posterior density function, $p(\theta|y)$, as a function of $\theta$.
+	\item Sample $1000$ draws of $\theta$ from the posterior density and plot a histogram of the draws.
+	\item Use the $1000$ samples of $\theta$ to obtain $1000$ samples from the predictive distribution of a future observation, $y_6$, and plot a histogram of the predictive draws.
+\end{enumerate}
+
+\textbf{Answer:}
+
+The following is an excerpt from the script ``2.11.11.py'' that does the math before plotting
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def normalized(arr):
+    return arr/arr.sum()
+
+m = 2**12 # This is unnecessarily big I guess
+
+y = np.array([43, 44, 45, 46.5, 47.5])
+theta = np.linspace(0, 100, m+1)
+b_y, b_theta = np.meshgrid(y, theta) # "Big y, big theta"
+
+theta_updf = 1
+y_gvn_theta_updf = 1/np.prod(1+(b_y-b_theta)**2, axis=1)
+# item a:
+theta_gvn_y_pdf = normalized(theta_updf*y_gvn_theta_updf)
+
+np.random.seed(42)
+
+# item b:
+
+def draw_samples(vals, pdf, size=1):
+    cdf = np.cumsum(pdf)
+    udraws = np.random.uniform(size=size)
+    b_cdf, b_udraws = np.meshgrid(cdf, udraws)
+    ids = np.argmax(b_cdf > b_udraws, axis=1)
+    return vals[ids]
+
+theta_gvn_y_samples = draw_samples(theta, theta_gvn_y_pdf, size=1000)
+
+# item c:
+y_pred_samples = np.random.standard_cauchy(size=1000)+theta_gvn_y_samples
+\end{lstlisting}
+
+From these data, Figure \ref{fig:2.11.11} is constructed.
+\begin{figure}[h]
+	\center
+	\includegraphics[width=\textwidth]{Numerical/2.11.11.png}
+	\caption{Binned approximation to the posterior distribution for $\theta$ (a), histogram from such a distribution (b), and histogram for the posterior predictive distribution for $y_6=\tilde{y}$ (c).}
+	\label{fig:2.11.11}
+\end{figure}
+
+\textbf{Ex. 2.11.12: }Jeffreys' prior distributions: suppose $y|\theta\sim\oname{Poisson}(\theta)$. Find Jeffreys' prior density for $\theta$, and then find $\alpha$ and $\beta$ for which the $\oname{Gamma}(\alpha,\,\beta)$ density is a close match to Jeffreys' density.
+
+\textbf{Answer:}
+
+Jeffreys prescribes
+\begin{align*}
+	p(\theta)&\propto\left[J(\theta)\right]^{\frac12},
+\end{align*}
+where $J(\theta)$ is the Fisher Information for $\theta$:
+\begin{align*}
+	J(\theta)&=\mathrm E\left(\left(\partial_\theta\log p(y|\theta)\right)^2\middle|\theta\right)=-\mathrm E\left((\partial_\theta)^2\log p(y|\theta)\middle|\theta\right).
+\end{align*}
+
+Direct calculation follows:
+\begin{align*}
+	p(y|\theta)&=\oname{Poisson}(\theta)\\
+	&=\frac{\theta^y\mathrm e^{-y}}{y!},\\
+	\log p(y|\theta)&=y\log\theta+f(y),\\
+	\partial_\theta\log p(y|\theta)&=\frac{y}\theta,\\
+	J(\theta)&=\frac1{\theta^2}\mathrm E\left(y^2\right).
+\end{align*}
+
+It thus follows that Jeffreys' prior is the improper distribution $p(\theta)\propto1/\theta$.
+
+Since
+\begin{align*}
+	\oname{Gamma}(\theta|\alpha,\,\beta)&\propto\theta^{\alpha-1}\mathrm e^{-\beta\theta},
+\end{align*}
+it follows that $\alpha\rightarrow0^+$ and $\beta\rightarrow0^+$ should approach this distribution.
+
+\textbf{Ex. 2.11.13: }Discrete data: Table \ref{table:2.11.13} gives the number of fatal accidents and deaths on scheduled airline flights per year over a ten-year period. We use these data as a numerical example for fitting discrete data models.
+\begin{enumerate}[label=\alph*]
+	\item Assume that the numbers of fatal accidents in each year are independent with a $\oname{Poisson}(\theta)$ distribution. Set a prior distribution for $\theta$ and determine the posterior distribution based on the data from $1976$ through $1985$. under this model, give a $95\%$ predictive interval for the number of fatal accidents in $1986$. You can use the normal approximation to the gamma and Poisson or compute using simulation.
+	\item Assume that the numbers of fatal accidents in each year are independent with a $\oname{Poisson}(\theta)$ distributions with a constant rate and an exposure in each year proportional to the number of passenger miles flown. Set a prior distribution for $\theta$ and determine the posterior distribution based on the data for $1976--1985$ . (Estimate the number of passenger miles flown in each year by dividing the appropriate columns of Table \ref{table:2.11.13} and ignoring round-off errors.) Give a $95\%$ predictive interval for the number of fatal accidents in $1986$ under the assumption that $8\times10^{11}$ passenger miles are flown that year.
+	\item Repeat (a) above, replacing `fatal accidents' with `passenger deaths.'
+	\item Repeat (b) above, replacing `fatal accidents' with `passenger deaths.'
+	\item In which of the cases (a)--(d) above does the Poisson model seem more or less reasonable? Why? Discuss based on general principles, without sepecific reference to the numbers in Table \ref{table:2.11.13}
+\end{enumerate}
+
+Incidentally, in $1986$, there were $22$ fatal accidents, $546$ passenger deaths, and a death rate of $0.06$ per $100$ million miles flown. We return to this example in Exercises $3.12$, $6.2$, $6.3$, and $8.14$.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ c c c c }
+	Year & Fatal accidents & Passenger deaths & Death rate\\
+	\hline
+	1976 & 24 & 734 & 0.19\\
+	1977 & 25 & 516 & 0.12\\
+	1978 & 31 & 754 & 0.15\\
+	1979 & 31 & 877 & 0.16\\
+	1980 & 22 & 814 & 0.14\\
+	1981 & 21 & 362 & 0.06\\
+	1982 & 26 & 764 & 0.15\\
+	1983 & 20 & 809 & 0.13\\
+	1984 & 16 & 223 & 0.03\\
+	1985 & 22 & 1066 & 0.15
+\end{tabular}
+\label{table:2.11.13}
+\caption{\textit{Worldwide airline fatalities, 1976--1985. Death rate is passenger deaths per 100 million passenger miles. Source:} Statistical Abstract of the United States.}
+\end{center}
+\end{table}
 
 \end{document}
 \endinput
