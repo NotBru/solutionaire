@@ -7,8 +7,8 @@ theta_min = 140
 theta_max = 190
 
 n = np.arange(0, 100+1)
-theta = np.linspace(theta_max, theta_min, 101)
-b_n, b_theta = np.meshgrid(n, theta)
+theta = np.linspace(theta_min, theta_max, 101)
+b_n, b_theta = np.meshgrid(n, np.flip(theta))
 
 mean = (40**(-2)*180+20**(-2)*150*n)/(40**(-2)+20**(-2)*n)
 stddev = 1/np.sqrt(40**(-2)+n*20**(-2))
