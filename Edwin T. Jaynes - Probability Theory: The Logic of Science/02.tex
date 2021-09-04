@@ -1,0 +1,112 @@
+% VLDB template version of 2020-03-05 enhances the ACM template, version 1.7.0:
+% https://www.acm.org/publications/proceedings-template
+% The ACM Latex guide provides further information about the ACM template
+
+\documentclass{article}
+\usepackage{listings}
+\usepackage[margin=20mm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{cancel}
+
+%% The following content must be adapted for the final version
+% paper-specific
+\newcommand\vldbdoi{XX.XX/XXX.XX}
+\newcommand\vldbpages{XXX-XXX}
+% issue-specific
+\newcommand\vldbvolume{14}
+\newcommand\vldbissue{1}
+\newcommand\vldbyear{2020}
+% should be fine as it is
+\newcommand\vldbauthors{\authors}
+\newcommand\vldbtitle{\shorttitle} 
+% leave empty if no availability url should be set
+\newcommand\vldbavailabilityurl{http://vldb.org/pvldb/format_vol14.html}
+\newcommand\oname{\operatorname}
+
+\newtheorem{theorem}{Teor.}
+\newtheorem{definition}{Def.}
+\newtheorem{example}{Ej.}
+\newtheorem{excercise}{Ejer.}
+
+\begin{document}
+
+\textbf{Ex. 2.1: }Is it possible to find a general formula for $p(C|A+B)$, analogous to $(2-48)$, from the product and sum rules? If so, derive it; if not, explain why this cannot be done.
+
+\textbf{Answer:}
+
+Sure. We've derived Bayes theorem without naming it, which is simply product rule and commutativity, so we can say
+\begin{align*}
+	p(C|A+B)&=\frac{p(C)\,p(A+B|C)}{p(A+B)}\\
+	&=\frac{p(C)\,\left(p(A)+p(B)-p(AB|C)\right)}{p(A)+p(B)-p(AB)}.
+\end{align*}
+
+\textbf{Ex. 2.2: }Now suppose we have a set of propositions $\{A_1,\,\cdots,\,A_n\}$ which on information $X$ are mutually exclusive: $p(A_iA_j|X)=p(A_i|X)\delta_{ij}$. Show that $p(C|(A_1+A_2+\cdots+A_n)X)$ is a weighted average of the separate plausibilities $p(C|A_iX)$:
+\begin{align*}
+	p(C|(A_1+\cdots+A_n)X)=p(C|A_1X+A_2X+\cdots+A_nX)=\frac{\sum_ip(A_i|X)p(C|A_iX)}{\sum_ip(A_i|X)}.
+\end{align*}
+
+\textbf{Answer:}
+For $i\neq j$,
+\begin{align*}
+	p(C|A+B)&=\frac{p(A+B|C)p(C)}{p(A+B)}\\
+	&=\frac{(p(A)+p(B)-p(AB|C))p(C)}{p(A)+p(B)-p(AB|C)}.
+\end{align*}
+Iterating this over $\sum_iA_i$ we get
+\begin{align*}
+	p\left(\sum_iA_i\middle|X\right)&=\sum_ip(A_i|X).
+\end{align*}
+
+Thus, and in a similar manner to the above excercise,
+\begin{align*}
+	p\left(C\middle|\sum_iA_iX\right)&=\frac{p\left(\sum_iA_i\middle|CX\right)p(C|X)}{p(\sum_iA_i|X)}\\
+	&=\frac{\sum_ip(A_i|CX)p(C|X)}{\sum_ip(A_i|X)}\\
+	&=\frac{\sum_ip(A_i|X)p(C|A_iX)}{\sum_ip(A_i|X)}.
+\end{align*}
+
+\textbf{Ex.: }Let $A_i$ mutually exclusive ($P(A_iA_j)=P(A_i)\delta_{ij}$). Then, $P(\sum_iA_i)=\sum_iP(A_i)$.
+
+\textbf{Answer: }
+
+If $i\in\{1,\,2\}$, then
+\begin{align}
+	P(\sum_iA_i)&=P(A_1+A_2)\\
+	&=P(A_1)+P(A_2)-\cancelto0{P(A_1A_2)}\\
+	&=\sum_iP(A_i).
+\end{align}
+
+Then, by induction,
+\begin{align}
+	P\left(\sum_i^{N+1}A_i\right)&=P\left(\sum_i^NA_i\right)+P(A_{N+1})-P\left(\sum_i^NA_iA_{N+1}\right)\\
+	&=\sum_i^NP(A_i)+P(A_{N+1})-\sum_i^N\cancelto0{(A_iA_{N+1})}\\
+	&=\sum_iP(A_i).
+\end{align}
+
+\textbf{Ex. 2.3: Limits on Probability Values: } As soon as we have the numerical values $a=P(A|C)$ and $b=P(B|C)$, the product and sum rules place some limits on the possible numerical values for their conjunction and disjuncion. Supposing that $a\leq b$, show that the probability of the conjunction cannot exceed that of the least possible proposition: $0\leq P(AB|C)\leq a$, and the probability of the disjunction cannot be less than that of the most probable proposition: $b\leq P(A+B|C)\leq 1$. Then show that, if $a+b>1$, there is a stronger inequality for the conjunction; and if $a+b<1$ there is a stronger one for the disjunction. These necessary general inequalities are helpful in detecting errors in calculations.
+
+\textbf{Answer: }
+
+For the conjunction,
+\begin{align}
+	P(AB|C)&=P(A|C)P(B|AC)\\
+	&=aP(B|AC)
+	&\leq a.
+\end{align}
+
+Since $P(AB|C)=b+a-P(A+B|C)$, if $b+a>1$ then $P(AB|C)>1-P(A+B|C)=P(\overline{A+B}|C)$.
+
+For the disjunction,
+\begin{align}
+	P(A+B|C)&=P(A|C)+P(B|C)-P(AB|C)\\
+	&=b+a-P(AB|C)\\
+	&\geq b.
+\end{align}
+
+And also, $b+a<1$ implies $P(A+B|C)<1-P(AB|C)=P(\overline{AB}|C)$.
+
+\end{document}
+\endinput
